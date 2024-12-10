@@ -12,6 +12,7 @@
 
     "test": "npm run test:html",
     "test:html": "html-validate *.html",
+    "test:js": "npx eslint --no-eslintrc *.js",
 
     "build": "npm-run-all build:* test",
     "build:sass": "sass --style=compressed --no-source-map sass:css",

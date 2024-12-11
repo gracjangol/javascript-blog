@@ -20,8 +20,8 @@ function titleClickHandler(event){
   
   const articleSelector = clickedElement.getAttribute("href");
 
-  let targetArticle = document.querySelector(`[href="${articleSelector}"]`).getAttribute("href")
-  targetArticle = targetArticle.substring(1) 
+  let targetArticle = document.querySelector(`[href="${articleSelector}"]`).getAttribute("href");
+  targetArticle = targetArticle.substring(1); 
 
   const activeArticle = document.getElementById(`${targetArticle}`)
   activeArticle.classList.add('active')

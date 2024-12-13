@@ -61,7 +61,10 @@ function generateTitleLinks(){
 
 generateTitleLinks();
 
+const optTagsListSelector = '.tags.list';
+
 function generateTags(){
+  let allTags = [];
   const articles = document.getElementsByTagName('article');
 
   for (let article of articles) {
@@ -76,9 +79,14 @@ function generateTags(){
       const linkTagHtml = `<li><a href="#tag-${tag}">${tag}&nbsp;</a></li>`;
 
       html = html + linkTagHtml;
+      if(allTags.indexOf(linkTagHtml) == -1){
+        /* [NEW] add generated code to allTags array */
+        allTags.push(linkTagHtml);
+      }
     }  
-
     tagList.innerHTML = html;
+    const tagListTest = document.querySelector(optTagsListSelector);
+    tagListTest.innerHTML = allTags.join(' ');
   }
 }
 
@@ -116,7 +124,7 @@ function addClickListenersToTags(){
   }
 }
 
-addClickListenersToTags();
+
 
 function generateAuthors(){
   const articles = document.getElementsByTagName('article');
@@ -136,3 +144,4 @@ function generateAuthors(){
 }
 
 generateAuthors();
+

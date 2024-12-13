@@ -31,14 +31,14 @@ const optArticleSelector = '.post',
   optTitleSelector = '.post-title',
   optTitleListSelector = '.titles';
 
-function generateTitleLinks(){
+function generateTitleLinks(customSelector = ''){
 
   const titleList = document.querySelector(optTitleListSelector);
   titleList.innerHTML = '';
 
   let html = '';
 
-  const articles = document.querySelectorAll(optArticleSelector);
+  const articles = document.querySelectorAll(optArticleSelector + customSelector);
   for (let article of articles){
 
     const articleId = article.getAttribute('id');
@@ -62,9 +62,36 @@ function generateTitleLinks(){
 generateTitleLinks();
 
 const optTagsListSelector = '.tags.list';
+const optCloudClassCount = 5;
+const optCloudClassPrefix = 'tag-size-';
+
+function calculateTagsParams(tags) {
+  const params = {
+    min: 999999,
+    max: 0
+  };
+
+  for (let tag in tags) {
+    if (tags[tag] > params.max) {
+      params.max = tags[tag];
+    }
+    if (tags[tag] < params.min) {
+      params.min = tags[tag];
+    }
+  }
+  return params;
+}
+
+function calculateTagClass(count,params) {
+  const normalizedCount = count - params.min;
+  const normalizedMax = params.max - params.min;
+  const percentage = normalizedCount / normalizedMax;
+  const classNumber = Math.floor( percentage * (optCloudClassCount - 1) + 1 );
+  return optCloudClassPrefix + classNumber;
+}
 
 function generateTags(){
-  let allTags = [];
+  let allTags = {};
   const articles = document.getElementsByTagName('article');
 
   for (let article of articles) {
@@ -72,25 +99,35 @@ function generateTags(){
     let html = '';
     const articleTags = article.getAttribute('data-tags');
     const articleTagsArray = articleTags.split(' ');
-    const tagList = article.querySelector('div.post-tags ul');
+    const articleTagList = article.querySelector('div.post-tags ul');
 
     for (let tag of articleTagsArray) {
 
       const linkTagHtml = `<li><a href="#tag-${tag}">${tag}&nbsp;</a></li>`;
 
       html = html + linkTagHtml;
-      if(allTags.indexOf(linkTagHtml) == -1){
-        /* [NEW] add generated code to allTags array */
-        allTags.push(linkTagHtml);
+      if(!allTags.hasOwnProperty(tag)){
+        allTags[tag] = 1;
+      } else {
+        allTags[tag]++;
       }
     }  
-    tagList.innerHTML = html;
-    const tagListTest = document.querySelector(optTagsListSelector);
-    tagListTest.innerHTML = allTags.join(' ');
+    const tagList = document.querySelector(optTagsListSelector);
+
+    const tagsParams = calculateTagsParams(allTags);
+
+    let allTagsHTML = '';
+    for (let tag in allTags) {
+      const tagLinkHTML = `<li><a href="#tag-${tag}" class="${calculateTagClass(allTags[tag], tagsParams)}">${tag}</a></i>`;
+      allTagsHTML += tagLinkHTML;
+    }
+    articleTagList.innerHTML = html;
+    tagList.innerHTML = allTagsHTML;
   }
 }
 
 generateTags();
+
 
 function tagClickHandler(event){
   event.preventDefault();
@@ -124,7 +161,7 @@ function addClickListenersToTags(){
   }
 }
 
-
+addClickListenersToTags();
 
 function generateAuthors(){
   const articles = document.getElementsByTagName('article');

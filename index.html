@@ -108,7 +108,7 @@
                   </ul>
                 </div>
               </article>
-              <article class="post" id="article-8" data-tags="cat scissors" data-author="Theo Tabby">
+              <article class="post" id="article-8" data-tags="cat scissors" data-author="George Tuxedo">
                 <h3 class="post-title">Article 8</h3>
                 <div class="post-content">
                   <p>Praesent quis imperdiet erat. Curabitur tempor sapien a interdum malesuada. Proin libero erat, sagittis a sollicitudin eget, pulvinar nec risus. Cras et suscipit sem.</p>
@@ -154,31 +154,31 @@
               </ul>
               <h2 class="section-title">Authors</h2>
               <ul class="list authors">
-                <li>
-                  <a href="#">
-                    <span class="author-name">Kitty Toebean</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <span class="author-name">Theo Tabby</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <span class="author-name">George Tuxedo</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <span class="author-name">Marion Berry</span>
-                  </a>
-                </li>
               </ul>
             </aside>
           </main>
         </div>
       </div>
+  <script id="template-article-link" type="text/x-handlebars-template">
+    <li><a href="#{{ id }}"><span>{{ title }}</span></a></li>
+  </script>
+  <script id="template-tag-link" type="text/x-handlebars-template">
+    <li><a href="#tag-{{ tag }}" class="{${calculateTagClass(allTags[tag], tagsParams)}}">{{ title }}</a></li>
+  </script>
+  <script id="template-tag-cloud-link" type="text/x-handlebars-template">
+    {{#each tags}}
+    <li><a href="#tag-{{tag}}" class="{{className}}">{{ tag }}</a></li>
+    {{/each}}
+  </script>
+  <script id="template-article-author" type="text/x-handlebars-template">
+    <p class="post-author">by {{ author }}</p>
+  </script>
+<script id="template-author-cloud-link" type="text/x-handlebars-template">
+  {{#each authors}}
+  <li><a href="#tag-{{link}}" class="{{className}}">{{linkName}}</a></li>
+  {{/each}}
+</script>  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>    
   <script src="js/script.js"></script>
 </body>
 </html>

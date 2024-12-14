@@ -66,7 +66,6 @@ function generateTitleLinks(customSelector = ''){
       link.addEventListener('click', titleClickHandler);
     }
   }
-  console.log(customSelector);
 
 }
 
@@ -170,7 +169,6 @@ function tagClickHandler(event){
 
 
   generateTitleLinks('[data-tags~="' + tag + '"]');
-  console.log(tag);
 }
 
 
@@ -191,7 +189,6 @@ function generateAuthors(){
 
     let html = '';
     const authorTag = article.getAttribute('data-author');
-    console.log(authorTag);
     const articleAuthorElement = article.querySelector('p');
     const authorTagHTMLdata = {author: authorTag};
     const authorTagHTML = templates.articleAuthor(authorTagHTMLdata);
@@ -214,7 +211,6 @@ function generateAuthors(){
         count: allAuthorsData[authorLink],
         className: calculateTagClass(allTags[author],tagsParams)
       });
-      console.log(allAuthorsData)
     }
 
     articleAuthorElement.innerHTML = html;

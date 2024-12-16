@@ -1,3 +1,5 @@
+'use strict';
+
 const templates = {
   articleLink: Handlebars.compile(document.querySelector('#template-article-link').innerHTML),
   tagLink: Handlebars.compile(document.querySelector('#template-tag-link').innerHTML),
@@ -5,8 +7,6 @@ const templates = {
   tagCloudLink: Handlebars.compile(document.querySelector('#template-tag-cloud-link').innerHTML),
   authorCloudLink: Handlebars.compile(document.querySelector('#template-author-cloud-link').innerHTML)
 };
-
-'use strict';
 
 function titleClickHandler(event){
   const clickedElement = this;
@@ -153,7 +153,7 @@ function tagClickHandler(event){
 
   const href = clickedElement.getAttribute('href');
 
-  if (!href === href.includes('article')) {
+  if (!href.includes('article')) {
     const tag = href.replace('#tag-', '');
 
     const generateActiveTagLinks = document.querySelectorAll('a.active[href^="#tag-"]');
@@ -239,7 +239,7 @@ function authorClickHandler(event){
   const href = clickedElement.getAttribute('href');
   const authorName = clickedElement.innerHTML;
 
-  if (!href === href.includes('article')) {
+  if (!href.includes('article')) {
 
     const generateActiveAuthorLinks = document.querySelectorAll(`.list.authors a.active`);
 
